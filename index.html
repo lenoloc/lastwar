@@ -1,0 +1,2240 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#6e398e" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="Last WAR Train" />
+<title>Last WAR - Train V4</title>
+<style>
+:root{--bg:#f5f6fb;--card:#fff;--text:#111827;--muted:#6b7280;--line:#e5e7eb;--primary:#6e398e;--primary2:#2f52a0;--danger:#e94b57;--ok:#16a34a;--warn:#f59e0b;--soft:#f9fafb;--shadow:0 14px 34px rgba(17,24,39,.09);--safe-bottom:env(safe-area-inset-bottom,0px)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 0 0,rgba(110,57,142,.17),transparent 35%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:calc(82px + var(--safe-bottom))}.app{max-width:1320px;margin:0 auto;padding:18px}.hero{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff;border-radius:24px;padding:22px;box-shadow:var(--shadow);margin-bottom:16px}.hero h1{margin:0 0 6px;font-size:clamp(25px,5vw,42px)}.hero p{margin:0;opacity:.92;line-height:1.45}.layout{display:grid;grid-template-columns:1.12fr .88fr;gap:16px}.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:16px;margin-bottom:16px}.panel h2{margin:0 0 14px;font-size:20px}.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:13px}.stat{background:var(--soft);border:1px solid var(--line);border-radius:15px;padding:11px}.stat strong{display:block;font-size:22px}.stat span{font-size:11px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.04em}.toolbar,.grid-form,.planner{display:grid;gap:10px}.toolbar{grid-template-columns:1fr 135px 135px}.grid-form{grid-template-columns:1.2fr .45fr .55fr .6fr .6fr .8fr auto;align-items:end}.planner{grid-template-columns:1fr 1fr auto;align-items:end}label{display:block;margin:0 0 5px;font-size:12px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.045em}input,select,textarea,button{font:inherit}input,select,textarea{width:100%;border:1px solid var(--line);border-radius:13px;background:#fff;color:var(--text);padding:11px 12px;outline:none}input[readonly]{background:#f3f4f6;color:#4b5563;font-weight:800}input:focus,select:focus,textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(110,57,142,.14)}button{border:0;border-radius:13px;padding:11px 13px;font-weight:800;cursor:pointer;white-space:nowrap}.primary{background:var(--primary);color:#fff}.light{background:#f3f4f6;color:#111827}.danger{background:#ffe4e6;color:#9f1239}.warn{background:#fef3c7;color:#92400e}.ok{background:#dcfce7;color:#166534}.blue{background:#dbeafe;color:#1d4ed8}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.notice{display:none;margin-top:12px;background:#eff6ff;color:#1e40af;border-radius:13px;padding:10px 12px;font-weight:700}.notice.show{display:block}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:15px;max-height:520px}table{width:100%;border-collapse:collapse;min-width:900px}th,td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}th{position:sticky;top:0;background:#f9fafb;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.04em;z-index:1}.exit-row{background:#fff1f2;color:#7f1d1d}.ignored-row{background:#fffbeb}.absent-row{background:#eff6ff}.pill{display:inline-flex;align-items:center;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:900}.r5{background:#ede9fe;color:#5b21b6}.r4{background:#dbeafe;color:#1d4ed8}.r3{background:#dcfce7;color:#166534}.r2{background:#fef3c7;color:#92400e}.r1{background:#f3f4f6;color:#374151}.exit{background:#fee2e2;color:#991b1b}.absent{background:#dbeafe;color:#1d4ed8}.mini{display:flex;flex-wrap:wrap;gap:6px}.mini button{padding:7px 9px;font-size:12px}.member-cards,.planning-list{display:none}.member-card,.planning-card,.history-card{border:1px solid var(--line);border-radius:17px;background:#fff;padding:14px;margin-bottom:10px;box-shadow:0 8px 20px rgba(17,24,39,.06)}.exit-card{background:#fff1f2}.ignored-card{background:#fffbeb}.absent-card{background:#eff6ff}.top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.member-card h3{margin:0;font-size:17px}.meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.meta div{background:#f9fafb;border:1px solid var(--line);border-radius:12px;padding:9px;font-size:13px}.meta span{display:block;color:var(--muted);font-size:11px;font-weight:800;text-transform:uppercase}.planning-card{display:flex;justify-content:space-between;gap:12px;align-items:center}.planning-card strong{display:block}.planning-card small,.history-card small{color:var(--muted)}textarea{min-height:260px;resize:vertical;line-height:1.45}.muted{color:var(--muted);font-size:13px;line-height:1.4}.bottom-nav{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:8px 8px calc(8px + var(--safe-bottom));z-index:20;display:none}.bottom-nav .inner{max-width:620px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.bottom-nav button{padding:10px 6px;background:#f3f4f6;color:#374151;font-size:13px}.hidden{display:none!important}
+@media(max-width:980px){.app{padding:12px}.layout{display:block}.toolbar,.grid-form,.planner,.stats{grid-template-columns:1fr}.hero{border-radius:20px;padding:18px}.panel{padding:14px}.desktop-table,.planning-table-wrap{display:none}.member-cards,.planning-list{display:block}.bottom-nav{display:block}button,input,select,textarea{font-size:16px}.actions button{flex:1}.sticky-add{position:sticky;top:0;background:var(--card);z-index:5}.stat strong{font-size:20px}}
+@media(min-width:981px){body{padding-bottom:0}.right-sticky{position:sticky;top:14px}.planning-table{min-width:100%}}
+</style>
+</head>
+<body>
+<div class="app">
+<section class="hero"><h1>🚆 Last WAR - Train V4</h1><p>Planning automatique, historique des semaines et gestion des absents.</p></section>
+<div class="layout">
+<main>
+<section class="panel" id="section-members"><h2>👥 Membres</h2><div class="stats"><div class="stat"><strong id="countTotal">0</strong><span>Total</span></div><div class="stat"><strong id="countActive">0</strong><span>Actifs</span></div><div class="stat"><strong id="countExit">0</strong><span>EXIT</span></div><div class="stat"><strong id="countIgnored">0</strong><span>Ignorés</span></div><div class="stat"><strong id="countAbsent">0</strong><span>Absents</span></div></div><div class="toolbar"><div><label>Recherche</label><input id="searchInput" placeholder="Alias, code ou rang" /></div><div><label>Filtre</label><select id="statusFilter"><option value="all">Tous</option><option value="active">Actifs</option><option value="exit">EXIT</option><option value="ignored">Ignorés</option><option value="absent">Absents</option></select></div><div><label>Tri</label><select id="sortSelect"><option value="code">Code</option><option value="alias">Alias</option><option value="rang">Rang</option></select></div></div></section>
+<section class="panel sticky-add" id="section-add"><h2>➕ Ajouter / modifier</h2><form id="memberForm" class="grid-form"><input type="hidden" id="editCode"/><div><label>Alias</label><input id="alias" required placeholder="Nom du membre"/></div><div><label>Code auto</label><input id="code" type="number" readonly/></div><div><label>Rang</label><select id="rang"><option>R5</option><option>R4</option><option selected>R3</option><option>R2</option><option>R1</option><option>EXIT</option></select></div><div><label>Train</label><select id="conduiteTrain"><option value="true">Oui</option><option value="false">Non</option></select></div><div><label>Temp.</label><select id="temporaire"><option value="false">Non</option><option value="true">Oui</option></select></div><div><label>Absent jusqu’au</label><input id="absentUntil" type="date"/></div><button class="primary" id="submitBtn" type="submit">Ajouter</button></form><div class="actions"><button class="light" id="newBtn" type="button">Nouveau</button><button class="light" id="cancelEditBtn" type="button">Annuler</button><button class="light" id="exportBtn" type="button">Exporter JSON</button><button class="light" id="importBtn" type="button">Importer JSON</button><button class="danger" id="resetBtn" type="button">Réinitialiser</button><input id="fileInput" class="hidden" type="file" accept="application/json,.json"/></div><div id="notice" class="notice"></div><p class="muted">Le code est automatique : plus grand code existant + 1. Un absent est ignoré jusqu’à la date indiquée. Sans date, le bouton “Absent” l’exclut jusqu’à réactivation.</p></section>
+<section class="panel"><div class="table-wrap desktop-table"><table><thead><tr><th>Code</th><th>Alias</th><th>Rang</th><th>Train</th><th>État</th><th>Absent jusqu’au</th><th>Actions</th></tr></thead><tbody id="membersBody"></tbody></table></div><div class="member-cards" id="membersCards"></div></section>
+</main>
+<aside class="right-sticky">
+<section class="panel" id="section-planning"><h2>📅 Planning automatique</h2><div class="planner"><div><label>Date de début</label><input id="startDate" type="date" value="2026-07-20"/></div><div><label>Dernier conducteur</label><input id="lastCode" type="number" min="0" value="62"/></div><button class="primary" id="generateBtn" type="button">Générer</button></div><div class="actions"><button class="blue" id="autoNextBtn" type="button">Générer semaine suivante</button><button class="ok" id="saveHistoryBtn" type="button">Sauver dans l’historique</button><button class="warn" id="useLastGeneratedBtn" type="button">Utiliser dernier code</button></div><div class="table-wrap planning-table-wrap" style="max-height:none;margin-top:12px"><table class="planning-table"><thead><tr><th>Jour</th><th>Date</th><th>Conducteur</th><th>Code</th><th>Rang</th></tr></thead><tbody id="planningBody"></tbody></table></div><div class="planning-list" id="planningCards"></div></section>
+<section class="panel" id="section-text"><h2>📝 Message</h2><textarea id="generatedText" readonly></textarea><div class="actions"><button class="ok" id="copyBtn" type="button">Copier</button><button class="light" id="downloadTxtBtn" type="button">Télécharger .txt</button></div></section>
+<section class="panel" id="section-history"><h2>📜 Historique</h2><div class="actions"><button class="light" id="exportAllBtn" type="button">Exporter tout</button><button class="danger" id="clearHistoryBtn" type="button">Vider historique</button></div><div id="historyList" style="margin-top:12px"></div></section>
+</aside>
+</div></div>
+<nav class="bottom-nav"><div class="inner"><button id="navMembers">👥 Membres</button><button id="navPlanning">🚆 Planning</button><button id="navText">📝 Texte</button><button id="navHistory">📜 Historique</button></div></nav>
+<script>
+const INITIAL_MEMBERS=[
+  {
+    "alias": "Narewn",
+    "code": 1,
+    "rang": "R5",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Ekud",
+    "code": 2,
+    "rang": "R4",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Haraldr Hardrada",
+    "code": 3,
+    "rang": "R4",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "ITSIGO",
+    "code": 4,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Julien38",
+    "code": 5,
+    "rang": "R4",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Lenoloc",
+    "code": 6,
+    "rang": "R4",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Marlome",
+    "code": 7,
+    "rang": "R4",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "pactuscactus",
+    "code": 8,
+    "rang": "R4",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Tagada4518",
+    "code": 9,
+    "rang": "R4",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Venom (ᕓᕮᘯᗜᘻ)",
+    "code": 10,
+    "rang": "R4",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "xMarcox",
+    "code": 11,
+    "rang": "R4",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Lolaaaa99",
+    "code": 12,
+    "rang": "R4",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "ALR4",
+    "code": 13,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "AMADIRISHSTE",
+    "code": 14,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Anthony1986",
+    "code": 15,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "ashanti",
+    "code": 16,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "aurelien79",
+    "code": 17,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Avwizard",
+    "code": 18,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "b2one60",
+    "code": 19,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Baracouda69",
+    "code": 20,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Barjoe31",
+    "code": 21,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Bazbow5",
+    "code": 22,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Blanquettedeveau",
+    "code": 23,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "BlueController",
+    "code": 24,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "bounox",
+    "code": 25,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Chris1300xjr",
+    "code": 26,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "CrashTestDummy97",
+    "code": 27,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Daiki 01",
+    "code": 28,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "DaniGC",
+    "code": 29,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Darkness24",
+    "code": 30,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "dj eric",
+    "code": 31,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "EasyRider90",
+    "code": 32,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Eric10800",
+    "code": 33,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Esten",
+    "code": 34,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Ezekiel72",
+    "code": 35,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Floky85ragnar",
+    "code": 36,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Fraal",
+    "code": 37,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "FredV",
+    "code": 38,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Fuby",
+    "code": 39,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Glitaldo38",
+    "code": 40,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Hard2k",
+    "code": 41,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Indoblade",
+    "code": 42,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Ivon 78",
+    "code": 43,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Jéjé30",
+    "code": 44,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "John2359390",
+    "code": 45,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "JPL007",
+    "code": 46,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Jrom",
+    "code": 47,
+    "rang": "R2",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Kanaima",
+    "code": 48,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "katdash",
+    "code": 49,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Krisayor",
+    "code": 50,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Lagares12",
+    "code": 51,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Le Grinch",
+    "code": 52,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "likes29",
+    "code": 53,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "limperator",
+    "code": 54,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Madinina75",
+    "code": 55,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "matheo92",
+    "code": 56,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Mkvliii",
+    "code": 57,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "momo4070",
+    "code": 58,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "N3wb13",
+    "code": 59,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Naze68",
+    "code": 60,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "pithon",
+    "code": 61,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Psyderman",
+    "code": 62,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "redbull40",
+    "code": 63,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Rōronøa",
+    "code": 64,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "scorpio38",
+    "code": 65,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Skoudy",
+    "code": 66,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Snake7venom",
+    "code": 67,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "sonya42",
+    "code": 68,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "staco",
+    "code": 69,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "stefvap89",
+    "code": 70,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Steph1140",
+    "code": 71,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Stephan27",
+    "code": 72,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Stephane0785",
+    "code": 73,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Sunlight17",
+    "code": 74,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "sunshinenyny",
+    "code": 75,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Supertramp90",
+    "code": 76,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Unclepiston",
+    "code": 77,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Wolfire",
+    "code": 78,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Ysfgck",
+    "code": 79,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "zeuhfox",
+    "code": 80,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "주님LETERNEL主",
+    "code": 81,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Atomicjulien",
+    "code": 82,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "axelb",
+    "code": 83,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "En avant toute",
+    "code": 84,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Erika 30 seconds",
+    "code": 85,
+    "rang": "R2",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "gaelle54",
+    "code": 86,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Gakool85",
+    "code": 87,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Jovo63",
+    "code": 88,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Karednis",
+    "code": 89,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Kiko1906",
+    "code": 90,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Mcfly62",
+    "code": 91,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "misslapi",
+    "code": 92,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "MMFM",
+    "code": 93,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Nikosorus17",
+    "code": 94,
+    "rang": "R2",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Revenge of the pikas",
+    "code": 95,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Shoshiro",
+    "code": 96,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Squirls",
+    "code": 97,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Thequeenb",
+    "code": 98,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "titoufritou",
+    "code": 99,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Yoh21",
+    "code": 100,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Frekoguedin24",
+    "code": 101,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Tata Carooo",
+    "code": 102,
+    "rang": "R2",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "JulCot50",
+    "code": 103,
+    "rang": "R3",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "gladiator666",
+    "code": 104,
+    "rang": "R1",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "TheFlashX",
+    "code": 105,
+    "rang": "R1",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Tycho57",
+    "code": 106,
+    "rang": "R1",
+    "conduiteTrain": true,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Adel799",
+    "code": 107,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Albator62360",
+    "code": 108,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "alexis62",
+    "code": 109,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Athoy31",
+    "code": 110,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Babilonik",
+    "code": 111,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Cardio2",
+    "code": 112,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "commander01c7d6219",
+    "code": 113,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Commander01d351219",
+    "code": 114,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Commander027b98219",
+    "code": 115,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Emilien71",
+    "code": 116,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Guiggs",
+    "code": 117,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "guillcha",
+    "code": 118,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Jess81",
+    "code": 119,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Le Pirate",
+    "code": 120,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Len le boss",
+    "code": 121,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Leodaganpresident",
+    "code": 122,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Mao073",
+    "code": 123,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Minawaka",
+    "code": 124,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Newtonn",
+    "code": 125,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Nicolascass",
+    "code": 126,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Nicotch",
+    "code": 127,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "OGGunners",
+    "code": 128,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Philou148",
+    "code": 129,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "sab2609",
+    "code": 130,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Sandez",
+    "code": 131,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "TheRef",
+    "code": 132,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Timmmmmmmmmmmmm",
+    "code": 133,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Yolesman",
+    "code": 134,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Alex7709",
+    "code": 135,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Àlino",
+    "code": 136,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Amphi",
+    "code": 137,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "antaure",
+    "code": 138,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Azkeladd",
+    "code": 139,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Bapt69",
+    "code": 140,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Bgaetan",
+    "code": 141,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Bobo tareco",
+    "code": 142,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "ChewbaK",
+    "code": 143,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Cissou6",
+    "code": 144,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Commander Persifal",
+    "code": 145,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Commander01a392219",
+    "code": 146,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Crakot",
+    "code": 147,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Dali95",
+    "code": 148,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Daminou 24",
+    "code": 149,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Deadman59",
+    "code": 150,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Derkmick",
+    "code": 151,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "diamenter",
+    "code": 152,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "DZMAFIA",
+    "code": 153,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Evannn83",
+    "code": 154,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Fionaria",
+    "code": 155,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "garionriva",
+    "code": 156,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "GauloisSauvage",
+    "code": 157,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "glemaire27",
+    "code": 158,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Greg63110",
+    "code": 159,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Jadenhalcyon",
+    "code": 160,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Jey z",
+    "code": 161,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "kainy45",
+    "code": 162,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Kaizen14",
+    "code": 163,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "kiss79",
+    "code": 164,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "LeaM26",
+    "code": 165,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "leloup38",
+    "code": 166,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "lisynateo",
+    "code": 167,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "ludovic71",
+    "code": 168,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Manikou",
+    "code": 169,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "medduzz",
+    "code": 170,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Momento37",
+    "code": 171,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "nicov",
+    "code": 172,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Niguel",
+    "code": 173,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Pandazkillaz",
+    "code": 174,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Rolli",
+    "code": 175,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Ruõÿ",
+    "code": 176,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "sebastor",
+    "code": 177,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "SpartaUA",
+    "code": 178,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Tbsprod",
+    "code": 179,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "the kit kat",
+    "code": 180,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "vengeurs",
+    "code": 181,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Winnieours",
+    "code": 182,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Biquette26",
+    "code": 183,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "brigatedutigre",
+    "code": 184,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Brisco971",
+    "code": 185,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Bylkuus",
+    "code": 186,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Commander02384f219",
+    "code": 187,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "FABchatte",
+    "code": 188,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Fabcity",
+    "code": 189,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Flashee",
+    "code": 190,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Foupoudav38",
+    "code": 191,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Frekoguedin24",
+    "code": 192,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "frog974",
+    "code": 193,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "gyptian",
+    "code": 194,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "istari21",
+    "code": 195,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Jbra",
+    "code": 196,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Jimmyhx",
+    "code": 197,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "JulCot50",
+    "code": 198,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "kikiroc",
+    "code": 199,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Klementhe3",
+    "code": 200,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Koulimate",
+    "code": 201,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Librelibrelibre",
+    "code": 202,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Lola (ღLolaღ)",
+    "code": 203,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "LordChig",
+    "code": 204,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Mannon",
+    "code": 205,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Marcus77FR",
+    "code": 206,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "marshallmts \n(aka mayzen13)",
+    "code": 207,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Martialou",
+    "code": 208,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Mercredi 硬 材 (anciennement GhOst Rider)",
+    "code": 209,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Miland",
+    "code": 210,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Pika chu2",
+    "code": 211,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "reallystrange",
+    "code": 212,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Roma Team",
+    "code": 213,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Sigfrid33",
+    "code": 214,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "TongZhu",
+    "code": 215,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "Worms712",
+    "code": 216,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "xleox06",
+    "code": 217,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  },
+  {
+    "alias": "zaza71380",
+    "code": 218,
+    "rang": "EXIT",
+    "conduiteTrain": false,
+    "temporaire": false,
+    "ignore": false,
+    "absent": false,
+    "absentUntil": ""
+  }
+];
+const DEFAULT_START='2026-07-20';
+const DEFAULT_LAST=62;
+const MEMBER_KEY='lastwar_train_members_v4';
+const HISTORY_KEY='lastwar_train_history_v4';
+const DAYS=['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
+let members=load(MEMBER_KEY,INITIAL_MEMBERS), history=load(HISTORY_KEY,[]), currentPlanning=[];
+function qs(id){return document.getElementById(id)}function clone(v){return JSON.parse(JSON.stringify(v))}function load(k,d){try{const v=localStorage.getItem(k);if(v)return JSON.parse(v)}catch(e){console.warn(e)}return clone(d)}function save(){localStorage.setItem(MEMBER_KEY,JSON.stringify(members));localStorage.setItem(HISTORY_KEY,JSON.stringify(history))}function show(msg){const n=qs('notice');n.textContent=msg;n.classList.add('show');setTimeout(()=>n.classList.remove('show'),3200)}function esc(s){return String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}function isExit(m){return String(m.rang||'').toUpperCase()==='EXIT'}function isPermanentAbsent(m){return !!m.absent&&!m.absentUntil}function dateOnly(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate())}function isAbsentOn(m,d){if(isPermanentAbsent(m))return true;if(!m.absentUntil)return false;return dateOnly(new Date(m.absentUntil+'T00:00:00'))>=dateOnly(d)}function isEligibleOn(m,d){return !isExit(m)&&!m.ignore&&m.conduiteTrain!==false&&!isAbsentOn(m,d)}function nextCode(){return members.length?Math.max(...members.map(m=>Number(m.code)||0))+1:1}function rClass(r){return String(r||'').toLowerCase()==='exit'?'exit':String(r||'').toLowerCase()}function fmtDate(d){return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'})}function fmtShort(d){return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'})}function iso(d){return d.toISOString().slice(0,10)}function addDays(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x}function weekNumber(date){const d=new Date(Date.UTC(date.getFullYear(),date.getMonth(),date.getDate()));const day=d.getUTCDay()||7;d.setUTCDate(d.getUTCDate()+4-day);const y=new Date(Date.UTC(d.getUTCFullYear(),0,1));return Math.ceil((((d-y)/86400000)+1)/7)}function memberState(m){if(isExit(m))return '🚪 EXIT';if(m.ignore)return '⏸️ Ignoré';if(isPermanentAbsent(m))return '🏖️ Absent';if(m.absentUntil)return '🏖️ Absent jusqu’au '+new Date(m.absentUntil+'T00:00:00').toLocaleDateString('fr-FR');return '✅ Actif'}function setNext(){if(!qs('editCode').value)qs('code').value=nextCode()}function resetForm(){qs('memberForm').reset();qs('editCode').value='';qs('rang').value='R3';qs('conduiteTrain').value='true';qs('temporaire').value='false';qs('submitBtn').textContent='Ajouter';setNext()}
+function filtered(){const q=qs('searchInput').value.trim().toLowerCase(),f=qs('statusFilter').value,sort=qs('sortSelect').value;let l=[...members];if(q)l=l.filter(m=>`${m.alias} ${m.code} ${m.rang}`.toLowerCase().includes(q));if(f==='active')l=l.filter(m=>!isExit(m));if(f==='exit')l=l.filter(isExit);if(f==='ignored')l=l.filter(m=>m.ignore);if(f==='absent')l=l.filter(m=>m.absent||m.absentUntil);l.sort((a,b)=>sort==='code'?a.code-b.code:String(a[sort]).localeCompare(String(b[sort]),'fr'));return l}
+function actions(m){return `<div class="mini"><button class="light" onclick="editMember(${m.code})">Modifier</button><button class="warn" onclick="toggleIgnore(${m.code})">${m.ignore?'Réactiver':'Ignorer'}</button><button class="blue" onclick="toggleAbsent(${m.code})">${(m.absent||m.absentUntil)?'Présent':'Absent'}</button><button class="danger" onclick="markExit(${m.code})">EXIT</button><button class="danger" onclick="deleteMember(${m.code})">Suppr.</button></div>`}
+function renderStats(){qs('countTotal').textContent=members.length;qs('countActive').textContent=members.filter(m=>!isExit(m)).length;qs('countExit').textContent=members.filter(isExit).length;qs('countIgnored').textContent=members.filter(m=>m.ignore).length;qs('countAbsent').textContent=members.filter(m=>m.absent||m.absentUntil).length}
+function renderMembers(){const l=filtered();qs('membersBody').innerHTML=l.map(m=>`<tr class="${isExit(m)?'exit-row':''} ${m.ignore?'ignored-row':''} ${(m.absent||m.absentUntil)?'absent-row':''}"><td><strong>${m.code}</strong></td><td>${esc(m.alias)}</td><td><span class="pill ${rClass(m.rang)}">${esc(m.rang)}</span></td><td>${m.conduiteTrain!==false?'✅ Oui':'❌ Non'}</td><td>${memberState(m)}</td><td>${m.absentUntil?fmtDate(new Date(m.absentUntil+'T00:00:00')):'-'}</td><td>${actions(m)}</td></tr>`).join('');qs('membersCards').innerHTML=l.map(m=>`<article class="member-card ${isExit(m)?'exit-card':''} ${m.ignore?'ignored-card':''} ${(m.absent||m.absentUntil)?'absent-card':''}"><div class="top"><h3>${esc(m.alias)}</h3><span class="pill ${rClass(m.rang)}">${esc(m.rang)}</span></div><div class="meta"><div><span>Code</span><strong>${m.code}</strong></div><div><span>État</span><strong>${memberState(m)}</strong></div><div><span>Train</span><strong>${m.conduiteTrain!==false?'Oui':'Non'}</strong></div><div><span>Temporaire</span><strong>${m.temporaire?'Oui':'Non'}</strong></div></div>${actions(m)}</article>`).join('');renderStats();setNext()}
+qs('memberForm').addEventListener('submit',e=>{e.preventDefault();const editing=!!qs('editCode').value,old=editing?Number(qs('editCode').value):null,code=editing?old:nextCode();const item={alias:qs('alias').value.trim(),code,rang:qs('rang').value,conduiteTrain:qs('conduiteTrain').value==='true',temporaire:qs('temporaire').value==='true',ignore:false,absent:false,absentUntil:qs('absentUntil').value||''};if(!item.alias)return show('Alias obligatoire.');if(editing){const idx=members.findIndex(m=>m.code===old);item.ignore=members[idx]?.ignore||false;item.absent=members[idx]?.absent||false;members[idx]=item;show('Membre modifié ✅')}else{members.push(item);show(`Membre ajouté avec le code ${code} ✅`)}save();resetForm();renderMembers();generatePlanning()});
+function editMember(code){const m=members.find(x=>x.code===code);if(!m)return;qs('editCode').value=m.code;qs('alias').value=m.alias;qs('code').value=m.code;qs('rang').value=m.rang;qs('conduiteTrain').value=String(m.conduiteTrain!==false);qs('temporaire').value=String(!!m.temporaire);qs('absentUntil').value=m.absentUntil||'';qs('submitBtn').textContent='Enregistrer';qs('section-add').scrollIntoView({behavior:'smooth',block:'start'})}function toggleIgnore(code){const m=members.find(x=>x.code===code);if(!m)return;m.ignore=!m.ignore;save();renderMembers();generatePlanning();show(m.ignore?'Membre ignoré.':'Membre réactivé.')}function toggleAbsent(code){const m=members.find(x=>x.code===code);if(!m)return;if(m.absent||m.absentUntil){m.absent=false;m.absentUntil='';show('Membre remis présent ✅')}else{m.absent=true;show('Membre marqué absent sans date.')}save();renderMembers();generatePlanning()}function markExit(code){const m=members.find(x=>x.code===code);if(!m)return;m.rang='EXIT';m.ignore=false;m.absent=false;m.absentUntil='';save();renderMembers();generatePlanning();show('Membre marqué EXIT.')}function deleteMember(code){if(!confirm('Supprimer définitivement ce membre ?'))return;members=members.filter(x=>x.code!==code);save();renderMembers();generatePlanning();show('Membre supprimé.')}
+function nextEligibleFor(lastCode,date){const sorted=[...members].sort((a,b)=>a.code-b.code);let idx=sorted.findIndex(m=>m.code>lastCode);if(idx<0)idx=0;for(let i=0;i<sorted.length*2;i++){const m=sorted[(idx+i)%sorted.length];if(isEligibleOn(m,date))return m}throw new Error('Aucun membre éligible pour '+fmtDate(date)+'.')}
+function buildPlanning(start,last){let out=[],cursor=Number(last)||0;for(let i=0;i<7;i++){const d=addDays(start,i);const m=nextEligibleFor(cursor,d);out.push({day:DAYS[i],date:iso(d),alias:m.alias,code:m.code,rang:m.rang});cursor=m.code}return out}
+function generatePlanning(){const v=qs('startDate').value;if(!v)return;const start=new Date(v+'T00:00:00'),last=Number(qs('lastCode').value||0);try{currentPlanning=buildPlanning(start,last);renderPlanning();renderText()}catch(e){currentPlanning=[];qs('planningBody').innerHTML='';qs('planningCards').innerHTML='';qs('generatedText').value=e.message}}
+function renderPlanning(){qs('planningBody').innerHTML=currentPlanning.map(p=>`<tr><td><strong>${p.day}</strong></td><td>${fmtDate(new Date(p.date+'T00:00:00'))}</td><td>${esc(p.alias)}</td><td>${p.code}</td><td><span class="pill ${rClass(p.rang)}">${esc(p.rang)}</span></td></tr>`).join('');qs('planningCards').innerHTML=currentPlanning.map(p=>`<article class="planning-card"><div><strong>${p.day}</strong><small>${fmtDate(new Date(p.date+'T00:00:00'))}</small></div><div style="text-align:right"><strong>${esc(p.alias)}</strong><small>Code ${p.code} · ${esc(p.rang)}</small></div></article>`).join('')}
+function renderText(){if(!currentPlanning.length){qs('generatedText').value='';return}const start=new Date(currentPlanning[0].date+'T00:00:00'),end=new Date(currentPlanning[6].date+'T00:00:00'),week=weekNumber(start),lines=currentPlanning.map(p=>`${p.day} : ${p.alias}`).join('\n');qs('generatedText').value=`[Train] Conducteurs Semaine ${week} du ${fmtShort(start)} au ${fmtShort(end)}\n\nBonjour,\n\nN’hésitez pas à attribuer le chauffeur si vous voyez le conducteur du jour connecté :\n\n${lines}\n\nSi le conducteur n’est pas attribué à midi, fais-le afin que tout le monde puisse monter dans le train.\n\nMerci de conserver ce message dans vos favoris. En cas de doute, consulte un autre R4.`}
+function latestHistory(){return [...history].sort((a,b)=>a.startDate.localeCompare(b.startDate)).at(-1)}function autoNextWeek(){const last=latestHistory();if(last){const d=addDays(new Date(last.startDate+'T00:00:00'),7);qs('startDate').value=iso(d);qs('lastCode').value=last.lastCode}else{qs('startDate').value=DEFAULT_START;qs('lastCode').value=DEFAULT_LAST}generatePlanning();show('Semaine suivante générée automatiquement ✅')}
+function saveHistory(){if(!currentPlanning.length)return show('Génère d’abord un planning.');const start=currentPlanning[0].date,end=currentPlanning[6].date,week=weekNumber(new Date(start+'T00:00:00')),lastCode=currentPlanning.at(-1).code,text=qs('generatedText').value;history=history.filter(h=>h.startDate!==start);history.push({id:Date.now(),week,startDate:start,endDate:end,lastCode,planning:clone(currentPlanning),text});history.sort((a,b)=>a.startDate.localeCompare(b.startDate));save();renderHistory();show('Planning sauvegardé dans l’historique ✅')}
+function renderHistory(){if(!history.length){qs('historyList').innerHTML='<p class="muted">Aucun planning sauvegardé pour le moment.</p>';return}qs('historyList').innerHTML=[...history].sort((a,b)=>b.startDate.localeCompare(a.startDate)).map(h=>`<article class="history-card"><div class="top"><div><strong>Semaine ${h.week}</strong><br><small>Du ${fmtShort(new Date(h.startDate+'T00:00:00'))} au ${fmtShort(new Date(h.endDate+'T00:00:00'))} · dernier code ${h.lastCode}</small></div></div><div class="actions"><button class="light" onclick="viewHistory(${h.id})">Voir</button><button class="ok" onclick="copyHistory(${h.id})">Copier</button><button class="danger" onclick="deleteHistory(${h.id})">Suppr.</button></div></article>`).join('')}
+function viewHistory(id){const h=history.find(x=>x.id===id);if(!h)return;currentPlanning=clone(h.planning);qs('startDate').value=h.startDate;qs('lastCode').value=h.planning[0]?.code?Number(h.planning[0].code)-1:DEFAULT_LAST;renderPlanning();qs('generatedText').value=h.text;qs('section-text').scrollIntoView({behavior:'smooth',block:'start'})}async function copyHistory(id){const h=history.find(x=>x.id===id);if(!h)return;await navigator.clipboard.writeText(h.text);show('Message historique copié ✅')}function deleteHistory(id){if(!confirm('Supprimer ce planning de l’historique ?'))return;history=history.filter(h=>h.id!==id);save();renderHistory();show('Historique supprimé.')}function exportBlob(name,data,type='application/json;charset=utf-8'){const b=new Blob([data],{type});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;a.click();URL.revokeObjectURL(a.href)}
+qs('generateBtn').addEventListener('click',generatePlanning);qs('autoNextBtn').addEventListener('click',autoNextWeek);qs('saveHistoryBtn').addEventListener('click',saveHistory);qs('useLastGeneratedBtn').addEventListener('click',()=>{if(!currentPlanning.length)return show('Génère d’abord un planning.');qs('lastCode').value=currentPlanning.at(-1).code;generatePlanning();show('Dernier code mis à jour ✅')});qs('copyBtn').addEventListener('click',async()=>{await navigator.clipboard.writeText(qs('generatedText').value);show('Texte copié ✅')});qs('downloadTxtBtn').addEventListener('click',()=>exportBlob('planning_train.txt',qs('generatedText').value,'text/plain;charset=utf-8'));qs('newBtn').addEventListener('click',resetForm);qs('cancelEditBtn').addEventListener('click',resetForm);qs('exportBtn').addEventListener('click',()=>exportBlob('lastwar_membres.json',JSON.stringify(members,null,2)));qs('exportAllBtn').addEventListener('click',()=>exportBlob('lastwar_sauvegarde_complete.json',JSON.stringify({members,history},null,2)));qs('importBtn').addEventListener('click',()=>qs('fileInput').click());qs('fileInput').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{const data=JSON.parse(await file.text());if(Array.isArray(data)){members=data}else if(data.members){members=data.members;history=data.history||history}else throw new Error('format');members=members.map(m=>({alias:String(m.alias||''),code:Number(m.code),rang:String(m.rang||'R3'),conduiteTrain:m.conduiteTrain!==false,temporaire:!!m.temporaire,ignore:!!m.ignore,absent:!!m.absent,absentUntil:m.absentUntil||''})).filter(m=>m.alias&&m.code);save();resetForm();renderMembers();renderHistory();generatePlanning();show('Import terminé ✅')}catch(err){show('Import impossible : JSON invalide.')}});qs('resetBtn').addEventListener('click',()=>{if(!confirm('Réinitialiser membres + historique ?'))return;members=clone(INITIAL_MEMBERS);history=[];save();resetForm();renderMembers();renderHistory();generatePlanning();show('Données réinitialisées.')});qs('clearHistoryBtn').addEventListener('click',()=>{if(!confirm('Vider tout l’historique ?'))return;history=[];save();renderHistory();show('Historique vidé.')});['searchInput','statusFilter','sortSelect'].forEach(id=>qs(id).addEventListener('input',renderMembers));['startDate','lastCode'].forEach(id=>qs(id).addEventListener('input',generatePlanning));function go(id){qs(id).scrollIntoView({behavior:'smooth',block:'start'})}qs('navMembers').addEventListener('click',()=>go('section-members'));qs('navPlanning').addEventListener('click',()=>go('section-planning'));qs('navText').addEventListener('click',()=>go('section-text'));qs('navHistory').addEventListener('click',()=>go('section-history'));
+resetForm();renderMembers();renderHistory();generatePlanning();
+</script>
+</body></html>
