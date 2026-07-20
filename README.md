@@ -12,4 +12,4 @@ fonctionnalités :
 - Application mobile responsive
 
 Version actulle :
-V4
+V6
